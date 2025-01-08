@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Store</title>
+     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="/" class="logo">Game Store</a>
+            <input type="text" placeholder="Поиск...">
+            <div class="auth-buttons">
+                {% if 'username' in session %}
+                    <a href="#" class="button secondary">{{ session['username'] }}</a>
+                    <a href="{{ url_for('logout') }}" class="button primary">Выйти</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="button primary">Вход</a>
+                    <a href="{{ url_for('register') }}" class="button secondary">Регистрация</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Популярные игры</h1>
+            </div>
+        </section>
+
+        <section class="games-section">
+            <div class="container">
+                <h2>Новинки</h2>
+                <div class="game-grid">
+                   {% for game in games %}
+                      <div class="game-card">
+                            <img src="{{ url_for('static', filename='uploads/'+game.image_path) }}" alt="{{ game.title }}">
+                            <h3>{{ game.title }}</h3>
+                            <p>{{ game.description }}</p>
+                           <a href="{{ url_for('game_details', game_id=game.id) }}" class="button buy">Купить</a>
+                      </div>
+                   {% endfor %}
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Game Store</p>
+        </div>
+    </footer>
+    <script src="{{url_for('static', filename='script.js')}}"></script>
+</body>
+</html>

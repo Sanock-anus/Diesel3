@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="/" class="logo">Game Store</a>
+            <input type="text" placeholder="Поиск...">
+             <div class="auth-buttons">
+                <a href="{{url_for('register')}}" class="button secondary">Регистрация</a>
+             </div>
+        </div>
+    </header>
+   <main>
+      <div class="container">
+        <h2>Вход</h2>
+         {% with messages = get_flashed_messages(with_categories=true) %}
+             {% if messages %}
+                 <ul class="flashes">
+                     {% for category, message in messages %}
+                         <li class="flash {{ category }}">{{ message }}</li>
+                     {% endfor %}
+                 </ul>
+             {% endif %}
+         {% endwith %}
+        <form method="post">
+          <input type="text" name="username" placeholder="Имя пользователя" required><br>
+          <input type="password" name="password" placeholder="Пароль" required><br>
+          <button type="submit" class="button primary">Войти</button>
+        </form>
+     </div>
+   </main>
+<footer>
+    <div class="container">
+        <p>&copy; 2024 Game Store</p>
+    </div>
+</footer>
+</body>
+</html>
